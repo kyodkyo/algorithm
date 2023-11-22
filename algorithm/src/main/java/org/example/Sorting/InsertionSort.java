@@ -2,7 +2,7 @@ package org.example.Sorting;
 
 import java.util.Scanner;
 
-public class SelectionSort {
+public class InsertionSort {
 
     static int[] arr;
 
@@ -15,26 +15,25 @@ public class SelectionSort {
             arr[i] = sc.nextInt();
         }
 
-        selectionSort();
+        insertionSort();
 
         for (int num : arr) {
             System.out.print(num + " ");
         }
     }
 
-    public static void selectionSort() {
-        int min;
-        int temp;
+    public static void insertionSort() {
+        int key;
+        int j;
 
-        for (int i = 0; i < arr.length - 1; i++) {
-            min = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j] < arr[min])
-                    min = j;
+        for (int i = 1; i < arr.length; i++) {
+            key = arr[i];
+            j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
             }
-            temp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = temp;
+            arr[j + 1] = key;
         }
     }
 }
