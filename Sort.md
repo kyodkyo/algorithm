@@ -158,22 +158,150 @@ function radixSort(arr, k)
 
 
 ## 병합 정렬(Merge Sort)
+분할 정복(divide and conquer) 방법 을 통해 주어진 배열을 정렬
 
-## 퀵 정렬(Quick Sort)
+1. 중간값을 기준으로 두개의 배열로 나눈다.
+2. 나뉜 배열을 각각 정렬하되, 1을 반복하여 배열의 원소개수가 1이 될때까지 계속한다.
+3. 정렬된 두 배열을 다시 병합한다.
 
-## 힙 정렬(Heap Sort)
 
-
-
-**시간복잡도**
+##### #시간복잡도
 
 |   평균   |   최선   |   최악   |
 | :------: | :------: | :------: |
-| Θ() | Ω() | O() |
+| Θ(nlogn) | Ω(nlogn) | O(nlogn) |
+
+
+
+
+##### #Pseudo code
+```
+function mergeSort(arr[], left, right)
+  if left < right
+    set mid = (low + high) / 2
+    mergeSort(arr, left, mid) // 왼쪽 병합정렬
+    mergeSort(arr, mid+1, right) // 오른쪽 병합정렬
+    merge(arr, left, mid, right) // 병합
+
+set result = []
+
+function merge(arr[], left, mid, right)
+      set i = left, j = mid + 1
+    
+      set k = left
+      while i <= mid && j <= right
+        if arr[i] <= arr[j]
+          result[k] = arr[i]
+          k += 1; i += 1
+        else
+          result[k] = arr[j]
+          k += 1; j += 1
+  
+      while i <= mid
+        result[k] = arr[i]
+        k += 1; i += 1
+    
+      while j <= right
+        result[k] = arr[j]
+        k += 1; j += 1
+  
+      for k = left ... k <= right
+        arr[k] = result[k]
+      
+      return arr
+```
 
 
 
 
 
+
+ 
+
+## 퀵 정렬(Quick Sort)
+분할 정복(divide and conquer) 방법 을 통해 주어진 배열을 정렬
+
+1. 배열 가운데서 하나의 원소(pivot)를 선택한다.
+2. 피벗 앞에는 피벗보다 값이 작은 모든 원소들이 오고, 피벗 뒤에는 피벗보다 값이 큰 모든 원소들이 오도록 배열을 둘로 나눈다.
+3. 분할된 두 개의 작은 배열에 대해 재귀(Recursion)적으로 이 과정을 반복한다.
+
+##### #시간복잡도
+
+|   평균   |   최선   |   최악   |
+| :------: | :------: | :------: |
+| Θ(nlogn) | Ω(nlogn) | O(n²) |
+
+
+
+
+##### #Pseudo code
+```
+function quickSort(arr[], left, right)
+  if left < right
+    pos = partition(arr, left, right)
+    
+    quickSort(arr, left, pos - 1)
+    quickSort(arr, pos + 1, right)
+
+function partition(arr[], left, right)
+  set pivot = selectPivot(arr, left, right)
+  set i = left - 1
+  
+  for j = left ... j <= right - 1
+    if arr[j] < pivot
+      i += 1
+      swap (arr[i], arr[j])
+      
+  swap (arr[i + 1], arr[right])
+  return i + 1  
+```
+
+
+
+
+
+ 
+
+
+## 힙 정렬(Heap Sort)
+완전 이진 트리를 기본으로 하는 힙(Heap) 자료구조를 기반으로한 정렬 방식
+
+
+
+
+##### #시간복잡도
+
+|   평균   |   최선   |   최악   |
+| :------: | :------: | :------: |
+| Θ(nlogn) | Ω(nlogn) | O(nlogn) |
+
+
+
+
+##### #Pseudo code
+```
+function heapSort(arr[], n)
+  for i = n / 2 ... i >= 1
+    heapify(arr, n, i)
+
+  for i = n ... i > 1
+    swap(arr[1], arr[i])
+    heap(arr, i, 1)
+
+function heap(arr[], n, i)
+  set largest = i
+  set l = i * 2
+  set r = i * 2 + 1
+
+  if l <= n && arr[l] > arr[largest]
+    largest = l
+
+  if r <= n && arr[r] > arr[largest]
+    largest = r
+
+  if largest != i
+    swap(arr[i], arr[largest])
+    heap(arr, n, largest)
+```
 
 
