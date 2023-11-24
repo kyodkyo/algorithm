@@ -25,8 +25,8 @@ public class MergeSort {
     }
 
     public static void mergeSort(int left, int right) {
-        int mid = (left + right) / 2;
         if (left < right) {
+            int mid = (left + right) / 2;
             mergeSort(left, mid);
             mergeSort(mid + 1, right);
             merge(left, mid, right);
