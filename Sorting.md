@@ -1,12 +1,39 @@
 # 정렬(Sorting)
 
+
 ---
 
 
+## Stable & Unstable Sort
+: 같은 값을 넣어 정렬을 할 때, 먼저 들어간 값이 반드시 앞쪽에 있음을 보장하면 'stable'한 것
+
+
+Stable : Bubble, Insertion, Merge, Radix
+
+
+UnStable : Selection, Quick, Heap
+
+
+---
+
+
+## In-Place Sort
+: 추가 메모리 없이 정렬이 가능한 알고리즘
+
+
+In-Place : Bubble, Selection, Insertion, Quick, Heap
+
+
+---
 
 
 ## 거품 정렬(Bubble Sort)
 서로 인접한 두 원소의 대소를 비교하고, 조건에 맞지 않다면 자리를 교환하며 정렬
+
+
+
+
+![Algorithm/resources/bubble-sort-001.gif](https://github.com/GimunLee/tech-refrigerator/blob/master/Algorithm/resources/bubble-sort-001.gif)
 
 
 
@@ -38,6 +65,9 @@ function bubble_sort(arr[])
 
 
 
+---
+
+
 
 
 ## 선택 정렬(Selection Sort)
@@ -47,6 +77,11 @@ function bubble_sort(arr[])
 1. 전체 값 중 가장 작은 값을 찾는다.
 2. 그 값을 맨 앞의 값과 교체한다.
 3. 첫번째 값을 제외한 나머지 배열을 같은 방법으로 바꿔준다.
+
+
+
+
+![Algorithm/resources/selection-sort-001.gif](https://github.com/GimunLee/tech-refrigerator/blob/master/Algorithm/resources/selection-sort-001.gif)
 
 
 
@@ -80,10 +115,18 @@ function selectionSotr(arr)
 
 
 
+---
+
+
 
 
 ## 삽입 정렬(Insertion Sort)
 앞에 있는 모든 원소가 정렬이 되어 있다는 가정 하에서 현재 원소의 위치를 적절하게 집어넣는 정렬
+
+
+
+
+![Algorithm/resources/insertion-sort-001.gif](https://github.com/GimunLee/tech-refrigerator/blob/master/Algorithm/resources/insertion-sort-001.gif)
 
 
 
@@ -113,6 +156,9 @@ function insertionSort(arr[])
 ```
 
 
+
+
+---
 
 
 
@@ -155,14 +201,20 @@ function radixSort(arr, k)
 
 
 
+---
+
+
 
 
 ## 병합 정렬(Merge Sort)
 분할 정복(divide and conquer) 방법 을 통해 주어진 배열을 정렬
 
+
 1. 중간값을 기준으로 두개의 배열로 나눈다.
 2. 나뉜 배열을 각각 정렬하되, 1을 반복하여 배열의 원소개수가 1이 될때까지 계속한다.
 3. 정렬된 두 배열을 다시 병합한다.
+
+
 
 
 ##### #시간복잡도
@@ -214,6 +266,7 @@ function merge(arr[], left, mid, right)
 
 
 
+---
 
 
  
@@ -221,9 +274,18 @@ function merge(arr[], left, mid, right)
 ## 퀵 정렬(Quick Sort)
 분할 정복(divide and conquer) 방법 을 통해 주어진 배열을 정렬
 
+
 1. 배열 가운데서 하나의 원소(pivot)를 선택한다.
 2. 피벗 앞에는 피벗보다 값이 작은 모든 원소들이 오고, 피벗 뒤에는 피벗보다 값이 큰 모든 원소들이 오도록 배열을 둘로 나눈다.
 3. 분할된 두 개의 작은 배열에 대해 재귀(Recursion)적으로 이 과정을 반복한다.
+
+
+
+
+![Algorithm/resources/quick-sort-001.gif](https://github.com/GimunLee/tech-refrigerator/blob/master/Algorithm/resources/quick-sort-001.gif)
+
+
+
 
 ##### #시간복잡도
 
@@ -259,6 +321,7 @@ function partition(arr[], left, right)
 
 
 
+---
 
  
 
@@ -286,22 +349,24 @@ function heapSort(arr[], n)
 
   for i = n ... i > 1
     swap(arr[1], arr[i])
-    heap(arr, i, 1)
+    heapify(arr, i, 1)
 
-function heap(arr[], n, i)
+function heapify(arr[], n, i)
   set largest = i
-  set l = i * 2
-  set r = i * 2 + 1
+  set left = i * 2
+  set right = i * 2 + 1
 
-  if l <= n && arr[l] > arr[largest]
-    largest = l
+  if left <= n && arr[left] > arr[largest]
+    largest = left
 
-  if r <= n && arr[r] > arr[largest]
-    largest = r
+  if right <= n && arr[right] > arr[largest]
+    largest = right
 
   if largest != i
     swap(arr[i], arr[largest])
-    heap(arr, n, largest)
+    heapify(arr, n, largest)
 ```
+
+
 
 
