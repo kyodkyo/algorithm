@@ -14,11 +14,6 @@ import java.util.Scanner;
  */
 
 public class Iterator {
-    /**
-     * 문제
-     * https://www.codetree.ai/missions/6/problems/golden-toast?&utm_source=clipboard&utm_medium=text
-     */
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
