@@ -43,19 +43,20 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Comparator;
 
-class Info{
-    String name;
-    int height;
-    Double weight;
-
-    public Info(String name, int height, Double weight){
-        this.name = name;
-        this.height = height;
-        this.weight = weight;
-    }
-}
-
 public class ETC {
+
+    static class Info{
+        String name;
+        int height;
+        Double weight;
+
+        public Info(String name, int height, Double weight){
+            this.name = name;
+            this.height = height;
+            this.weight = weight;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Info[] infos = new Info[5];
