@@ -10,9 +10,6 @@ class Solution {
                 answer++;
         }
         
-        if (answer < nums.length/2)
-            return answer;
-        else
-            return nums.length/2;
+        return answer < nums.length/2 ? answer : nums.length/2;
     }
 }
