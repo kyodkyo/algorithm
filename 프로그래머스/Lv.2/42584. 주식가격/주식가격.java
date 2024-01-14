@@ -9,7 +9,6 @@ class Solution {
             int count = 0;
             for(int i=cur+1; i<prices.length; i++){
                 count++;
-                
                 if (prices[i] < prices[cur])
                     break;
             }
