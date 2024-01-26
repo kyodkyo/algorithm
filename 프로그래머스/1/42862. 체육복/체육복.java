@@ -19,11 +19,12 @@ class Solution {
         }
         
         for(int i=0; i<lost.length; i++){
-            if (q.contains(lost[i]-1) || q.contains(lost[i]+1)){
-                if (q.contains(lost[i]-1))
-                    q.remove(lost[i]-1);
-                else if (q.contains(lost[i]+1))
-                    q.remove(lost[i]+1);
+            if (q.contains(lost[i]-1)){
+                q.remove(lost[i]-1);
+                answer++;
+            }
+            else if (q.contains(lost[i]+1)){
+                q.remove(lost[i]+1);
                 answer++;
             }
         }
