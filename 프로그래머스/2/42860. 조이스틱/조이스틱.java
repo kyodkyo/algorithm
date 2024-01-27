@@ -1,22 +1,24 @@
-class Solution{
+import java.util.*;
+
+class Solution {
     public int solution(String name) {
-        int answer = 0;
-
-        int min = name.length()-1;
-        for(int i=0; i<name.length(); i++){
-            char temp = name.charAt(i);
-            answer += Math.min(temp - 'A', 'Z' - temp + 1);
-
-            int j = i+1;
-            while(j < name.length() && name.charAt(j) == 'A'){
-                j++;
-            }
-            
-            int t = Math.min(2*i + (name.length()-j), 2*(name.length()-j) + i);
-            min = Math.min(min, t);
+        int len = name.length();
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for(int i=0; i<len; i++){
+            char c = name.charAt(i);
+            list.add(Math.min(c-'A', 'Z'-c+1));
         }
-
-        answer += min;
-        return answer;
+        
+        int move = len-1;
+        for(int i=0; i<len; i++){
+            int j = i+1;
+            
+            while(j<len && list.get(j)==0)
+                j++;
+            move = Math.min(move, Math.min(2*i + len - j, 2*(len-j) + i));
+        }
+        
+        return list.stream().mapToInt(i->i).sum() + move;
     }
 }
