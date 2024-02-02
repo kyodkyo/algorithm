@@ -23,3 +23,43 @@ class Solution {
         }
     }
 }
+
+/**
+ *  < BFS 풀이 >
+ *
+ * class Solution {
+ *     static boolean[] visited;
+ *     static Queue<Integer> q = new LinkedList<>();
+ *
+ *     public int solution(int n, int[][] computers) {
+ *         visited = new boolean[n];
+ *
+ *         int answer = 0;
+ *         for(int i=0; i<n; i++){
+ *             if (!visited[i]){
+ *                 answer++;
+ *                 bfs(i, n, computers);
+ *             }
+ *         }
+ *
+ *         return answer;
+ *     }
+ *
+ *     public static void bfs(int i, int n, int[][] computers){
+ *         q.offer(i);
+ *         visited[i] = true;
+ *
+ *         while(!q.isEmpty()){
+ *             int com = q.poll();
+ *
+ *             for(int j=0; j<n; j++){
+ *                 if (computers[com][j]==1 && !visited[j]){
+ *                     q.offer(j);
+ *                     visited[j] = true;
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ *
+ */

@@ -56,7 +56,6 @@ public class ETC {
             this.weight = weight;
         }
     }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Info[] infos = new Info[5];
