@@ -59,7 +59,7 @@ class Solution {
 
         for(int i=0; i<table_size; i++){
             for(int j=0; j<board_size; j++){
-                if(!visited[j] && table.get(i).size() == board.get(j).size() && isRotate(table.get(i), board.get(j))){
+                if(checkMap(j, visited, table.get(i), board.get(j))){
                     visited[j] = true;
                     answer += board.get(j).size();
                     break;
@@ -69,6 +69,17 @@ class Solution {
         }
 
         return answer;
+    }
+    
+    public boolean checkMap(int j, boolean[] visited, List<Point> table, List<Point> board){
+        if (visited[j])
+            return false;
+        if (table.size() != board.size())
+            return false;
+        if (!isRotate(table, board))
+            return false; 
+        return true;
+        
     }
 
     public boolean isRotate(List<Point> table, List<Point> board){
