@@ -16,10 +16,10 @@ class Solution {
             else
                 num[idx2++] = Integer.parseInt(s);
         }
-        return findMax(arr);
+        return findMax();
     }
     
-    public static int findMax(String[] arr){
+    public static int findMax(){
         int[][][] dp = new int[n+1][n+1][2];
         
         for(int i=0; i<n+1; i++)
