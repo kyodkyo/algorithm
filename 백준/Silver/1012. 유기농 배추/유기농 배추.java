@@ -11,7 +11,6 @@ public class Main{
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
         int t = Integer.parseInt(br.readLine());
         while (t-- > 0){
@@ -38,10 +37,10 @@ public class Main{
                     }
                 }
             }
-            sb.append(count + "\n");
+            System.out.println(count);
         }
-        System.out.println(sb);
     }
+    
     public static void dfs(int x, int y){
         visited[x][y] = true;
 
