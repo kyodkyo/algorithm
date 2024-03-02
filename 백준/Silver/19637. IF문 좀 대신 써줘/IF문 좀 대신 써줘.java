@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main{
-    static int n, m;
     static int[] values;
     static String[] names;
     static StringBuilder sb = new StringBuilder();
@@ -12,8 +11,8 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] input = br.readLine().split(" ");
 
-        n = Integer.parseInt(input[0]);
-        m = Integer.parseInt(input[1]);
+        int n = Integer.parseInt(input[0]);
+        int m = Integer.parseInt(input[1]);
         values = new int[n];
         names = new String[n];
 
@@ -30,7 +29,7 @@ public class Main{
 
     public static void searchLevel(int cur){
         int left = 0;
-        int right = n-1;
+        int right = values.length-1;
 
         while (left <= right){
             int mid = (left + right) / 2;
