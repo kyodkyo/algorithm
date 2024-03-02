@@ -15,10 +15,10 @@ public class Main{
         }
     }
     static List<Level> list = new ArrayList<>();
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
         String[] input = br.readLine().split(" ");
         int n = Integer.parseInt(input[0]);
@@ -30,11 +30,11 @@ public class Main{
         }
 
         for(int i=0; i<m; i++)
-            sb.append(searchLevel(Integer.parseInt(br.readLine())) + "\n");
+            searchLevel(Integer.parseInt(br.readLine()));
         System.out.println(sb);
     }
 
-    public static String searchLevel(int cur){
+    public static void searchLevel(int cur){
         int left = 0;
         int right = list.size()-1;
 
@@ -46,6 +46,6 @@ public class Main{
             else
                 right = mid - 1;
         }
-        return list.get(left).name;
+        sb.append(list.get(left).name + "\n");
     }
 }
