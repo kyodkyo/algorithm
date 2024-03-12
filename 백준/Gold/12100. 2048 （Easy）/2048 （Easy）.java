@@ -22,21 +22,11 @@ public class Main{
         System.out.println(result);
     }
 
-    public static void printBoard(int[][] board){
-        for(int[] row : board){
-            for(int val : row)
-                System.out.print(val + " ");
-            System.out.println();
-        }
-    }
+
     public static void recur(int depth) {
         if (depth == 5) {
-            int[][] copy = new int[n][n];
-            for(int i=0;i<n;i++){
-                for(int j=0;j<n;j++){
-                    copy[i][j]=input[i][j];
-                }
-            }
+            int[][] copy = copyBoard();
+
             for(int i=0; i<5; i++){
                 if (arr[i]==0)
                     copy = up(copy);
@@ -55,6 +45,16 @@ public class Main{
             arr[depth] = i;
             recur(depth + 1);
         }
+    }
+    
+    public static int[][] copyBoard(){
+        int[][] copy = new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                copy[i][j]=input[i][j];
+            }
+        }
+        return copy;
     }
 
     public static void findMax(int[][] board){
