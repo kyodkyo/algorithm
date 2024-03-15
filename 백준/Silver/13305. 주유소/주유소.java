@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main{
     static int[] distance;
@@ -24,11 +25,10 @@ public class Main{
     }
 
     public static int minPrice(int money){
+        int minPrice = price[0];
         for(int i=1; i< distance.length; i++){
-            if (price[i-1] >= price[i])
-                money += (price[i] * distance[i]);
-            else
-                money += (price[i-1] * distance[i]);
+            minPrice = Math.min(minPrice, price[i]);
+            money += (distance[i] * minPrice);
         }
         return money;
     }
