@@ -1,17 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Main {
-    static int n, m;
-    static int max = 0;
+    static int n, m, max = 0;
     static int[][] board;
     static boolean[][] visited;
-    static int[] dx = {1, 0, -1, 0};
-    static int[] dy = {0, 1, 0, -1};
-
+    static int[] dx = {1, 0, -1, 0}, dy = {0, 1, 0, -1};
     static int ex[][] = {{0, 0, 0, 1}, {0, 1, 2, 1}, {0, 0, 0, -1}, {0, -1, 0, 1}};
     static int ey[][] = {{0, 1, 2, 1}, {0, 0, 0, 1}, {0, 1, 2, 1}, {0, 1, 1, 1}};
 
@@ -39,9 +34,8 @@ public class Main {
         }
 
         for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
+            for(int j=0; j<m; j++)
                 checkRec2(i, j);
-            }
         }
         System.out.println(max);
     }
