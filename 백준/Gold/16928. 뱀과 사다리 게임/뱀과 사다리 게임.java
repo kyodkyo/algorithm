@@ -9,18 +9,14 @@ public class Main{
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] input = br.readLine().split(" ");
-
+        int total = Integer.parseInt(input[0]) + Integer.parseInt(input[1]);
+        
         int[] board = new int[101];
-
-        for(String s : input){
-            int k = Integer.parseInt(s);
-
-            while(k-- > 0){
-                String[] line = br.readLine().split(" ");
-                int start = Integer.parseInt(line[0]);
-                int end = Integer.parseInt(line[1]);
-                board[start] = end;
-            }
+        for(int i=0; i<total; i++){
+            String[] line = br.readLine().split(" ");
+            int start = Integer.parseInt(line[0]);
+            int end = Integer.parseInt(line[1]);
+            board[start] = end;
         }
         bfs(board);
     }
