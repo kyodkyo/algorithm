@@ -1,35 +1,26 @@
-import java.util.*;
-
 class Solution {
     public int[] solution(int[][] edges) {
-        int ver = 0;
+        int maxNode = 1;
+        for(int i=0; i<edges.length; i++)
+            maxNode = Math.max(maxNode, Math.max(edges[i][0], edges[i][1]));
+        
+        int[] inDegree = new int[maxNode + 1];
+        int[] outDegree = new int[maxNode + 1];
         for(int i=0; i<edges.length; i++){
-            ver = Math.max(ver, Math.max(edges[i][0], edges[i][1]));
+            inDegree[edges[i][1]]++;
+            outDegree[edges[i][0]]++;
         }
         
-        int[] input = new int[ver+1];
-        int[] output = new int[ver+1];
-        for(int i=0; i<edges.length; i++){
-            output[edges[i][0]]++;
-            input[edges[i][1]]++;
-        }
-        
-        return checkVer(ver, input, output);
-    }
-        
-    public static int[] checkVer(int ver, int[] input, int[] output){
         int[] answer = new int[4];
-        
-        for(int i=1; i<=ver; i++){
-            if (input[i]==0 && output[i] >= 2)
-                answer[0] = i;
-            else if (input[i] != 0 && output[i] == 0)
+        for(int n=1; n<=maxNode; n++){
+            if (inDegree[n]==0 && outDegree[n]>=2)
+                answer[0] = n;
+            else if (inDegree[n]!=0 && outDegree[n]==0)
                 answer[2]++;
-            else if (input[i] >=2 && output[i] >= 2)
+            else if (inDegree[n]>=2 && outDegree[n]>=2)
                 answer[3]++;
-            
         }
-        answer[1] = output[answer[0]] - (answer[2] + answer[3]);
+        answer[1] = outDegree[answer[0]] - (answer[2] + answer[3]);
         
         return answer;
     }
