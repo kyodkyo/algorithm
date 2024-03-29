@@ -37,18 +37,14 @@ public class Main{
             if (now == G)
                 return String.valueOf(building[now] - 1);
 
-            if (now + up <= F){
-                if(building[now + up] == 0) {
-                    building[now + up] = building[now] + 1;
-                    q.add(now + up);
-                }
+            if (now + up <= F && building[now + up] == 0) {
+                building[now + up] = building[now] + 1;
+                q.add(now + up);
             }
 
-            if (now - down >= 1){
-                if (building[now - down] == 0) {
-                    building[now - down] = building[now] + 1;
-                    q.add(now - down);
-                }
+            if (now - down >= 1 && building[now - down] == 0) {
+                building[now - down] = building[now] + 1;
+                q.add(now - down);
             }
         }
         return "use the stairs";
