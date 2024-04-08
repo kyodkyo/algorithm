@@ -3,101 +3,103 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.StringTokenizer;
 
 public class Main {
-	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	static StringTokenizer st;
-	static int N, M, map[][], ans;
-	static boolean visited[][][];
-	static int dr[] = { -1, 1, 0, 0 };
-	static int dc[] = { 0, 0, -1, 1 };
+    static class Node {
+        int x, y, time, use;
 
-	static class Node {
-		int r, c, t, use;
+        public Node(int x, int y, int time, int use) {
+            this.x = x;
+            this.y = y;
+            this.time = time;
+            this.use = use;
+        }
+    }
+    static int n, m, board[][], min;
+    static boolean visited[][][];
 
-		public Node(int r, int c, int t, int use) {
-			this.r = r;
-			this.c = c;
-			this.t = t;
-			this.use = use;
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] input = br.readLine().split(" ");
+        n = Integer.valueOf(input[0]);
+        m = Integer.valueOf(input[1]);
+        min = Integer.MAX_VALUE;
 
-	static void input() throws IOException {
-		st = new StringTokenizer(in.readLine());
-		N = Integer.valueOf(st.nextToken());
-		M = Integer.valueOf(st.nextToken());
-		map = new int[N][N];
-		visited = new boolean[2][N][N];
-		ans = Integer.MAX_VALUE;
-		for (int i = 0; i < N; i++) {
-			st = new StringTokenizer(in.readLine());
-			for (int j = 0; j < N; j++) {
-				map[i][j] = Integer.valueOf(st.nextToken());
-			}
-		}
-		// 교차로 체크
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				int cnt = 0;
-				if (map[i][j] == 0) {
-					if ((i - 1 >= 0 && map[i - 1][j] == 0) || (i + 1 < N && map[i + 1][j] == 0))
-						cnt++;
-					if ((j - 1 >= 0 && map[i][j - 1] == 0) || (j + 1 < N && map[i][j + 1] == 0))
-						cnt++;
-				}
-				if (cnt == 2)
-					map[i][j] = -1;
-			}
-		}
-	}
+        board = new int[n][n];
+        visited = new boolean[2][n][n];
 
-	static void bfs() {
-		Queue<Node> q = new LinkedList<>();
-		q.add(new Node(0, 0, 0, 1));
-		visited[1][0][0] = true;
-		while (!q.isEmpty()) {
-			Node cur = q.poll();
-			if(cur.r==N-1 && cur.c==N-1) {
-				ans = Math.min(ans, cur.t);
-				return;
-			}
-			for (int i = 0; i < 4; i++) {
-				int nr = cur.r + dr[i];
-				int nc = cur.c + dc[i];
-				int nt = cur.t + 1;
-				if (nr < 0 || nr >= N || nc < 0 || nc >= N || map[nr][nc] == -1)
-					continue;
-				if (map[nr][nc] == 0) {
-					// 대기
-					if (nt % M != 0) {
-						q.add(new Node(cur.r, cur.c, cur.t + 1, cur.use));
-					} else if (cur.use>0 && map[cur.r][cur.c] == 1 && !visited[0][nr][nc]) {// 연속이지 않고 방문하지 않은곳
-						visited[0][nr][nc] = true;
-						q.add(new Node(nr, nc, nt, 0));
-					}
-				} else if (map[nr][nc] == 1 && !visited[cur.use][nr][nc]) {
-					visited[cur.use][nr][nc] = true;
-					q.add(new Node(nr, nc, nt, cur.use));
-				} else if (map[nr][nc] >= 2) {
-					// 대기
-					if (nt % map[nr][nc] != 0) {
-						q.add(new Node(cur.r, cur.c, nt, cur.use));
-					}
-					// 이동
-					else if (map[cur.r][cur.c] == 1 && !visited[cur.use][nr][nc]) {
-						visited[cur.use][nr][nc] = true;
-						q.add(new Node(nr, nc, nt, cur.use));
-					}
-				}
-			}
-		}
-	}
+        for(int i=0; i<n; i++){
+            input = br.readLine().split(" ");
+            for(int j=0; j<n; j++)
+                board[i][j] = Integer.parseInt(input[j]);
+        }
 
-	public static void main(String[] args) throws IOException {
-		input();
-		bfs();
-		System.out.println(ans);
-	}
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<n; j++) {
+                int count = 0;
+                
+                if (board[i][j]==0) {
+                    if ((i-1>=0 && board[i-1][j]==0) || (i+1<n && board[i+1][j]==0))
+                        count++;
+                    if ((j-1>=0 && board[i][j-1]==0) || (j+1<n && board[i][j+1]==0))
+                        count++;
+                }
+                
+                if (count == 2)
+                    board[i][j] = -1;
+            }
+        }
+
+        bfs();
+        System.out.println(min);
+    }
+
+    static void bfs() {
+        int dx[] = { -1, 1, 0, 0 };
+        int dy[] = { 0, 0, -1, 1 };
+        
+        Queue<Node> q = new LinkedList<>();
+        q.add(new Node(0, 0, 0, 1));
+        visited[1][0][0] = true;
+        
+        while (!q.isEmpty()) {
+            Node cur = q.poll();
+            
+            if(cur.x == n-1 && cur.y == n-1) {
+                min = Math.min(min, cur.time);
+                return;
+            }
+            
+            for (int i=0; i<4; i++) {
+                int nx = cur.x + dx[i];
+                int ny = cur.y + dy[i];
+                int ntime = cur.time + 1;
+                
+                if (nx<0 || nx>=n || ny<0 || ny>=n || board[nx][ny]==-1)
+                    continue;
+                
+                if (board[nx][ny] == 0) {
+                    if (ntime % m != 0)
+                        q.add(new Node(cur.x, cur.y, cur.time + 1, cur.use));
+                        
+                    else if (cur.use>0 && board[cur.x][cur.y] == 1 && !visited[0][nx][ny]) {
+                        visited[0][nx][ny] = true;
+                        q.add(new Node(nx, ny, ntime, 0));
+                    }
+                } 
+                else if (board[nx][ny] == 1 && !visited[cur.use][nx][ny]) {
+                    visited[cur.use][nx][ny] = true;
+                    q.add(new Node(nx, ny, ntime, cur.use));
+                } 
+                else if (board[nx][ny] >= 2) {
+                    if (ntime % board[nx][ny] != 0)
+                        q.add(new Node(cur.x, cur.y, ntime, cur.use));
+                    else if (board[cur.x][cur.y] == 1 && !visited[cur.use][nx][ny]) {
+                        visited[cur.use][nx][ny] = true;
+                        q.add(new Node(nx, ny, ntime, cur.use));
+                    }
+                }
+            }
+        }
+    }
 }
