@@ -1,47 +1,59 @@
 import java.util.*;
 
 class Solution {
-    static class Subject{
+    static class Task{
         String name;
         int start;
         int taken;
 
-        public Subject(String name, int start, int taken){
+        public Task(String name, int start, int taken){
             this.name = name;
             this.start = start;
             this.taken = taken;
         }
     }
 
+    static ArrayList<Task> list = new ArrayList<>();
+    static ArrayList<String> answer = new ArrayList<>();
+    static Stack<Task> stack = new Stack<>();
+
     public String[] solution(String[][] plans) {
         int n = plans.length;
-        ArrayList<Subject> list = new ArrayList<>();
+
         for(int i=0; i<n; i++){
             String[] temp = plans[i][1].split(":");
             int mm = Integer.parseInt(temp[0]) * 60 + Integer.parseInt(temp[1]);
-            list.add(new Subject(plans[i][0], mm, Integer.parseInt(plans[i][2])));
+            list.add(new Task(plans[i][0], mm, Integer.parseInt(plans[i][2])));
         }
         list.sort((o1, o2) -> o1.start - o2.start);
-        ArrayList<String> answer = new ArrayList<>();
-        Stack<Subject> stack = new Stack<>();
 
+        checkOrder(n);
+
+        return answer.toArray(new String[0]);
+    }
+
+    public static void checkOrder(int n){
         int i = 0;
         int cur = list.get(0).start;
 
         while (true){
+            Task task = list.get(i);
+
             if (i==n-1){
-                answer.add(list.get(i).name);
+                answer.add(task.name);
                 while (!stack.isEmpty())
-                        answer.add(stack.pop().name);
+                    answer.add(stack.pop().name);
 
                 break;
             }
-            else if (list.get(i).start + list.get(i).taken < list.get(i+1).start) {
-                answer.add(list.get(i).name);
-                cur += list.get(i).taken;
+            
+            if (task.start + task.taken <= list.get(i+1).start) {
+                answer.add(task.name);
+                cur += task.taken;
 
                 while (!stack.isEmpty()){
-                    Subject tmp = stack.pop();
+                    Task tmp = stack.pop();
+                    
                     if (cur + tmp.taken <= list.get(i+1).start){
                         answer.add(tmp.name);
                         cur += tmp.taken;
@@ -53,22 +65,13 @@ class Solution {
                         break;
                     }
                 }
-
-                i++;
             }
-            else if (list.get(i).start + list.get(i).taken == list.get(i+1).start){
-                answer.add(list.get(i).name);
+            else {
+                task.taken -= (list.get(i+1).start - task.start);
                 cur = list.get(i+1).start;
-                i++;
+                stack.add(new Task(task.name, task.start, task.taken));
             }
-            else{
-                list.get(i).taken -= (list.get(i+1).start - list.get(i).start);
-                cur = list.get(i+1).start;
-                stack.add(new Subject(list.get(i).name, list.get(i).start, list.get(i).taken));
-                i++;
-            }
+            i++;
         }
-
-        return answer.toArray(new String[0]);
     }
 }
