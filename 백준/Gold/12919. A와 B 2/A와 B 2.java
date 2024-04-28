@@ -27,9 +27,6 @@ public class Main{
             possible += dfs(sb.reverse().toString());
         }
 
-        if (possible > 0)
-            return 1;
-        else
-            return 0;
+        return possible>0? 1: 0;
     }
 }
