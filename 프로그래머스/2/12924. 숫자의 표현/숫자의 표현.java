@@ -1,8 +1,6 @@
 class Solution {
     public int solution(int n) {
-        int count = 0;
-        
-        int left=1, right=1, sum=0;
+        int count=0, left=1, right=1, sum=0;
         while (left <= n){
             if (sum == n){
                 count++;
