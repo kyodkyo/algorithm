@@ -9,13 +9,12 @@ class Solution {
         List<Integer> list = new ArrayList<>(hashMap.keySet());
         list.sort((o1, o2) -> hashMap.get(o2) - hashMap.get(o1));
 
-        int sum = 0;
         int kind = 0;
         for(int key : list){
             kind++;
-            sum += hashMap.get(key);
+            k -= hashMap.get(key);
 
-            if (sum >= k)
+            if (k <= 0)
                 break;
         }
        return kind;
