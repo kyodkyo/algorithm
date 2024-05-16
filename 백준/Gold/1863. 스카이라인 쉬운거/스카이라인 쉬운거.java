@@ -9,18 +9,19 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        ArrayList<Integer> list = new ArrayList<>();
-        for(int i=0; i<n; i++){
-            String[] line = br.readLine().split(" ");
-            list.add(Integer.parseInt(line[1]));
-        }
+//        ArrayList<Integer> list = new ArrayList<>();
+//        for(int i=0; i<n; i++){
+//            String[] line = br.readLine().split(" ");
+//            list.add(Integer.parseInt(line[1]));
+//        }
 
         Stack<Integer> stack = new Stack<>();
         stack.push(0);
 
         int count = 0;
         for(int i=0; i<n; i++){
-            int h = list.get(i);
+            String[] line = br.readLine().split(" ");
+            int h = Integer.parseInt(line[1]);
             while (!stack.isEmpty() && stack.peek() > h){
                 stack.pop();
                 count++;
@@ -37,7 +38,7 @@ public class Main{
                 count++;
             stack.pop();
         }
-        
+
         System.out.println(count);
     }
 
