@@ -12,18 +12,18 @@ class Solution {
             for(int j=i; j<i+10; j++)
                 disMap.put(discount[j], disMap.getOrDefault(discount[j], 0) + 1);
 
-            boolean check = true;
-            for(String s : wantMap.keySet()){
-                if (disMap.get(s) != wantMap.get(s)){
-                    check = false;
-                    break;
-                }
-            }
-
-            if (check)
+            if (isPossible(wantMap, disMap))
                 result++;
         }
         
         return result;
+    }
+    
+    public static boolean isPossible(HashMap<String, Integer> wantMap, HashMap<String, Integer> disMap){
+        for(String s : wantMap.keySet()){
+            if (disMap.get(s) != wantMap.get(s))
+                return false;
+        }
+        return true;
     }
 }
