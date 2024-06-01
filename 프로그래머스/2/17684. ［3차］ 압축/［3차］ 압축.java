@@ -10,9 +10,9 @@ class Solution {
 
         ArrayList<Integer> list = new ArrayList<>();
         while(!dict.containsKey(msg)){
-            int i = 0;
-            int j = 1;
+            int i = 0, j = 1;
             String word = msg.substring(i, j);
+            
             while(dict.containsKey(word)) {
                 j++;
                 word = msg.substring(i, j);
@@ -20,7 +20,6 @@ class Solution {
 
             list.add(dict.get(word.substring(i, j-1)));
             dict.put(word, seq++);
-
             msg = msg.substring(j-1);
         }
         list.add(dict.get(msg));
