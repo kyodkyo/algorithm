@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,20 +47,20 @@ class Main{
         int count = 0;
 
         if (horses[0].equals(target) && horses[4].equals(target) && horses[8].equals(target))
-            count++;
+            return true;
         if (horses[2].equals(target) && horses[4].equals(target) && horses[6].equals(target))
-            count++;
+            return true;
 
         for(int i=0; i<9; i+=3)
             if (horses[i].equals(target) && horses[i+1].equals(target) && horses[i+2].equals(target))
-                count++;
+                return true;
 
         for(int i=0; i<3; i++)
             if (horses[i].equals(target) && horses[i+3].equals(target) && horses[i+6].equals(target))
-                count++;
+                return true;
 
-        if (count == 1)
-            return true;
+//        if (count == 1)
+//            return true;
         return false;
     }
 }
